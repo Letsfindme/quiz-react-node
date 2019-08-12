@@ -7,7 +7,7 @@ const client = createClient({
   accessToken: config.CONTENTFUL_ACCESS_TOKEN
 })
 
-console.log(config);
+//console.log(config);
 console.log(client)
 
 const environment = client.getSpace(config.CONTENTFUL_SPACE_ID)
