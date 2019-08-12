@@ -7,9 +7,14 @@ import Home from "./pages/home";
 export default props => {
   const dispatch = useDispatch();
   const isLoaded = useSelector(state => state.app.isLoaded);
-  const [playerName, setPlayerName] = useState(null);
-  const [myName, setMyName] = useState(null);
-  const [newPlayer, setNewPlayer] = useState(null);
+  const [state, setState] = useState({
+    playerName: '',
+    myName: '',
+    newPlayer: ''
+  });
+  // const [playerName, setPlayerName] = useState(null);
+  // const [myName, setMyName] = useState(null);
+  // const [newPlayer, setNewPlayer] = useState(null);
 
   useEffect(() => {
     dispatch({ type: "SET_LOADED" });
@@ -21,18 +26,18 @@ export default props => {
         //   return entry.update();
         // })
         .then(entry => {
-          setPlayerName(entry.fields.name["en-US"]);
+          setState({ playerName: entry.fields.name["en-US"] });
           console.log(`Entry ${entry.sys.id} updated.`);
         });
     });
   }, []);
 
   const handleChange = (event) => {
-    setMyName(event.target.value)
+    setState({ ...state, myName: event.target.value })
   };
 
   const handleNewPlayerChange = (event) => {
-    setNewPlayer(event.target.value)
+    setState({ ...state, newPlayer: event.target.value })
   };
 
   const handleClick = () => {
@@ -40,11 +45,11 @@ export default props => {
       api
         .getEntry("6FaLeB6E9iOq6463bCba0X")
         .then(entry => {
-          entry.fields.name["en-US"] = myName;
+          entry.fields.name["en-US"] = state.myName;
           return entry.update();
         })
         .then(entry => {
-          setPlayerName(entry.fields.name["en-US"]);
+          setState({ ...state, playerName: entry.fields.name["en-US"] });
           console.log(`id ${entry.sys.id}`);
         });
     });
@@ -56,7 +61,7 @@ export default props => {
         'player', {
           fields: {
             name: {
-              'en-US': newPlayer
+              'en-US': state.newPlayer
             }
           }
         }
@@ -73,7 +78,7 @@ export default props => {
     <div className="app-wrapper">
       <h1>App wrapper</h1>
       <Home />
-      {playerName ? `Player name is : ${playerName}` : `Player name is : ...`}
+      {state.playerName ? `Player name is : ${state.playerName}` : `Player name is : ...`}
       <input type="text" name="player" onChange={handleChange} />
       <button onClick={handleClick} className="block mt-4">
         Change the player name [PUT]
