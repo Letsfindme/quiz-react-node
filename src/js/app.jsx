@@ -12,18 +12,18 @@ export default props => {
   useEffect(() => {
     dispatch({ type: "SET_LOADED" });
 
-  //   api.then(api => {
-  //     api
-  //       .getEntry("30DlkSFvmLSuAMN0rn9hwT")
-  //       .then(entry => {
-  //         entry.fields.name["en-US"] = "Super spongeBob";
-  //         return entry.update();
-  //       })
-  //       .then(entry => {
-  //         setPlayerName(entry.fields.name["en-US"]);
-  //         console.log(`Entry ${entry.sys.id} updated.`);
-  //       });
-  //   });
+    api.then(api => {
+      api
+        .getEntry("6FaLeB6E9iOq6463bCba0X")
+        .then(entry => {
+          entry.fields.name["en-US"] = "Super spongeBob";
+          return entry.update();
+        })
+        .then(entry => {
+          setPlayerName(entry.fields.name["en-US"]);
+          console.log(`Entry ${entry.sys.id} updated.`);
+        });
+    });
   }, []);
 
   const handleClick = () => {};
