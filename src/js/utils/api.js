@@ -1,16 +1,18 @@
 // import axios from "axios";
-// import config from "../../../config";
-// import { createClient } from "contentful-management"
+import { createClient } from "contentful-management"
+import config from "../../../config";
 
-// const client = createClient({
-//   accessToken: config.CONTENTFUL_ACCESS_TOKEN
-// })
 
-// console.log(config);
+const client = createClient({
+  accessToken: config.CONTENTFUL_ACCESS_TOKEN
+})
 
-// const environment = client.getSpace(config.CONTENTFUL_SPACE_ID)
-//   .then((space) => space.getEnvironment('master'))
-//   .then((environment) => environment)
-//   .catch(console.error)
+console.log(config);
+console.log(client)
 
-// export default environment;
+const environment = client.getSpace(config.CONTENTFUL_SPACE_ID)
+  .then((space) => space.getEnvironment('master'))
+  .then((environment) => environment)
+  .catch(console.error)
+
+export default environment;
